@@ -29,27 +29,38 @@ def ConvNN():
 
     #Perform initial convolution. Activation just linear. 3x3 conv-> valid padding would reduce size to 26x26
     #adding more filters takes longer, inc acc
+    #Use 3x3 because research suggested 3x3 or 5x5 and our img size was only 28x28
     model.add(Conv2D(16, kernel_size=(3,3), padding="same", input_shape=img_size))
 
     #Perform 2nd conv
-    #adding more layers takes longer, inc acc
+    #Adding more layers takes longer, inc acc
     model.add(Conv2D(32, (3, 3), padding="same", activation = "relu"))
+    #Pooling for feature control for not perfectly aligned data set
+    #Use max pooling because that's what was recommended in Assignment 4 and articles suggested it
+    #Use pooling to downsample more robustly than stride increase
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25)) #dropout for regularization; .25 kind of arbitrary as rate of disassoc.
     model.add(Conv2D(64, (3, 3), padding="same", activation = "relu"))
     model.add(Dropout(0.25))
 
-    #flatten array for fully connected layers 
+    #Flatten array for fully connected layers 
     model.add(Flatten())
 
-    #do fc layer with 256 nodes; would do 14x14x64 but that had estimated training time of a day
+    #Do fc layer with 256 nodes; would do 14x14x64 but that had estimated training time of a day
     model.add(Dense(256, activation="relu"))
     model.add(Dropout(0.5))
-    #adding another fully conn doesnt help and makes training super long
+    #Adding another fully conn (like 128 or 64) doesnt help and makes training super long
     model.add(Dense(10,activation="softmax"))
 
+    # Use adam optimizer and sparse crossentropy loss function based on research. Cross-ent better for classification
+    # Sparse does not require hot encoding, ie that we necessarily hardcode our 10 classes in memory
     model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-    model.fit(x=x_train,y=y_train, epochs=10)
+    
+    #stop if doesnt imporove after 3 epochs
+    checkImprovement = EarlyStopping(patience=3)
+
+    #data small enough so fit_generator not rqd
+    model.fit(x=x_train,y=y_train, validation_split=.2, epochs=10, callbacks=[checkImprovement])
 
     model.evaluate(x_test, y_test)
 
