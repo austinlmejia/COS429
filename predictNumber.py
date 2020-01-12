@@ -8,13 +8,15 @@
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-from CNN import ConvNN
+import tensorflow as tf
+from keras.models import load_model
+from keras.layers import Activations
 
 def predictNumber(img):
 
     # trains a CNN on the MNIST data set-> dont know how to import the model without training the CNN
     # each time??
-    model = ConvNN()
+    model = load_model("Model_3conv.h5", custom_objects = {'softmax_v2': tf.nn.softmax})
 
     # format image for square sizing
     imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
