@@ -12,6 +12,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Conv2D, Dropout, Flatten, MaxPooling2D, Activation
 from keras.callbacks import EarlyStopping
 
+#method can be used to train our CNN on a data set
 def ConvNN():
     (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
 
@@ -52,16 +53,16 @@ def ConvNN():
     #Adding another fully conn (like 128 or 64) doesnt help and makes training super long
     model.add(Dense(10,activation="softmax"))
 
-    # Use adam optimizer and sparse crossentropy loss function based on research. Cross-ent better for classification
-    # Sparse does not require hot encoding, ie that we necessarily hardcode our 10 classes in memory
+    #Use adam optimizer and sparse crossentropy loss function based on research. Cross-ent better for classification
+    #Sparse does not require hot encoding, ie that we necessarily hardcode our 10 classes in memory
     model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
     
-    #stop if doesnt imporove after 3 epochs
+    #Stop if doesnt imporove after 3 epochs
     checkImprovement = EarlyStopping(patience=3)
 
-    #data small enough so fit_generator not rqd
+    #Data small enough so fit_generator not rqd
     model.fit(x=x_train,y=y_train, validation_split=.2, epochs=10, callbacks=[checkImprovement])
 
-    model.evaluate(x_test, y_test)
+    # model.evaluate(x_test, y_test)
 
     return model

@@ -13,9 +13,6 @@ from keras.models import load_model
 from keras.layers import Activations
 
 def predictNumber(img):
-
-    # trains a CNN on the MNIST data set-> dont know how to import the model without training the CNN
-    # each time??
     model = load_model("Model_3conv.h5", custom_objects = {'softmax_v2': tf.nn.softmax})
 
     # format image for square sizing
