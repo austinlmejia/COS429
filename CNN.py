@@ -1,6 +1,10 @@
 ###############################
-# Learned how to import the MNIST set from: 
+# Learned how to read in file from website: 
 # https://towardsdatascience.com/image-classification-in-10-minutes-with-mnist-dataset-54c35b77a38d
+#
+# Based CNN architecture off of this Keras Sequential tutorial:
+# https://www.pyimagesearch.com/2018/12/31/keras-conv2d-and-convolutional-layers/
+# 
 ###############################
 
 import tensorflow as tf
@@ -59,9 +63,7 @@ def ConvNN():
 
     #Data small enough so fit_generator not rqd
     model.fit(x=x_train,y=y_train, validation_split=.2, epochs=10, callbacks=[checkImprovement])
-    
+
     # model.evaluate(x_test, y_test)
-    # model.save("Model_3conv.h5") -> save model if necessary
-    # model.summary() can give layer summary
 
     return model
