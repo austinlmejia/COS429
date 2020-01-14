@@ -1,3 +1,10 @@
+########################################
+# Takes in a 3-part addition or subtration equation
+# and outputs 3 boxes around the first number, the operator, 
+# and the second number.
+########################################
+
+
 import matplotlib  as plt
 import cv2
 import numpy as np
