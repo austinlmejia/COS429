@@ -25,7 +25,7 @@ def predictNumber(img):
 
     #perform thresholding. Tried to do a different way but article, MNIST guide, and googling said to use threshold
     #use binary thresholding based on cv2 documentation
-    retVal, img_gray = cv2.threshold(img_gray, 128, 255, cv2.THRESH_BINARY)
+    retVal, img_gray = cv2.threshold(img_gray, 115, 255, cv2.THRESH_BINARY)
 
     #shave edges to fit to 20x20
     #logic for this attributed to medium website linked in header
@@ -82,7 +82,7 @@ def predictNumber(img):
     moveLR = np.round(size[1]/2.0-xBar).astype(int)
     moveUD = np.round(size[0]/2.0-yBar).astype(int)
     M = np.float32([[1,0,moveLR],[0,1,moveUD]])
-    img_gray = cv2.warpAffine(img_gray,M,(cols,rows))
+    img_gray = cv2.warpAffine(img_gray,M,(size[1],size[0]))
     
     # format for keras model
     img_gray = img_gray/255
