@@ -1,7 +1,8 @@
 #####################################
 # Predicts number based on input image 
 # using neural network from keras model
-#
+# This was our first processing function;
+# it does not work well for uploaded pictures
 #
 #####################################
 
