@@ -62,5 +62,6 @@ def ConvNN():
     
     # model.evaluate(x_test, y_test)
     # model.save("Model_3conv.h5") -> save model if necessary
+    # model.summary() can give layer summary
 
     return model
