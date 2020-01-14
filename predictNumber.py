@@ -10,15 +10,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 from keras.models import load_model
-from keras.layers import Activations
+from keras.layers import Activation
 
 def predictNumber(img):
     model = load_model("Model_3conv.h5", custom_objects = {'softmax_v2': tf.nn.softmax})
 
     # format image for square sizing
-    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    squareGray = imgGray[1000:3500, 0:2500] #square size depends on img but worked for all sample images
-    resizedSquare = cv2.resize(squareGray, (28, 28), interpolation=cv2.INTER_AREA)
+    # imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    #imgGray[1000:3500, 0:2500] #square size depends on img but worked for all sample images
+    resizedSquare = cv2.resize(img, (28, 28), interpolation=cv2.INTER_AREA)
 
     #format for keras
     squareAsArray = resizedSquare.reshape(28, 28, 1)

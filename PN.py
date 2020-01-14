@@ -32,7 +32,10 @@ def predictNumber(img):
 
     ##########################################################################
     # This section between the lines is from Medium (towardsdatascience) website tutorial on image
+    # Used tutorials and code based on TA recommendation to preprocess images (thank you!)
     # We simply changed the parameters passed in to fit our project
+    
+    # trim top edge
     while np.sum(img_gray[0]) == 0:
         img_gray = img_gray[1:]
 
@@ -48,7 +51,7 @@ def predictNumber(img):
     while np.sum(img_gray[:,-1]) == 0:
         img_gray = np.delete(img_gray,-1,1)
 
-    # center in 28x28
+    # center in 28x28 frame
     # whichever side is larger, scale that by a factor of 20/side to obtain tightly fit image
     # this essentially fits border of image to the number
     rows, cols = img_gray.shape
