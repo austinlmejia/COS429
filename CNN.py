@@ -1,9 +1,6 @@
 ###############################
-# File from website: 
+# Learned how to import the MNIST set from: 
 # https://towardsdatascience.com/image-classification-in-10-minutes-with-mnist-dataset-54c35b77a38d
-#
-# 
-#
 ###############################
 
 import tensorflow as tf
@@ -62,7 +59,8 @@ def ConvNN():
 
     #Data small enough so fit_generator not rqd
     model.fit(x=x_train,y=y_train, validation_split=.2, epochs=10, callbacks=[checkImprovement])
-
+    
     # model.evaluate(x_test, y_test)
+    # model.save("Model_3conv.h5") -> save model if necessary
 
     return model
